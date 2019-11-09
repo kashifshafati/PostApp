@@ -1,18 +1,32 @@
 <div id="page_wrapper">
-<h1>Make Something</h1>
+	<h1>Make Something</h1>
 
 <%= form_for :post, url: posts_path do |f| %>
+ <% if @post.errors.any? %>
+   <div id="errors">
+	<h3><%= pluralize(@post.errors.count, "errors")%>Stopped This Post From Saving</h3>
+
+		<ul>
+			<% @post.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<%end%>
+
 	<p>
 		<%= f.label :title%>
 		<%=f.text_field :title%>
 	</p>
 
-		<p>
+	<p>
 		<%= f.label :body%>
-		<%=f.text_field :body%>
+		<%=f.text_area :body%>
 	</p>
-		<p>
+
+	<p>
 		<%= f.submit%>
 	</p>
+
 	<%end%>
 </div>
